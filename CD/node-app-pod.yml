@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: node-app
+  labels:
+    app: node-app
+spec:
+  containers:
+    - name: node-app
+      image: sabreensalama/jenkins-node-app:latest
+      envFrom:
+        - configMapRef:
+            name: mysql-configmap
+      ports:
+        - name: web
+          containerPort: 3000
+          protocol: TCP
