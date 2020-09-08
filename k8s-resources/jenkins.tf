@@ -32,6 +32,10 @@ resource "kubernetes_deployment" "jenkins-deployment" {
           fs_group = "1000"
         }
 
+        image_pull_secrets{
+              name= "regcred"
+          }
+
         volume {
           name = "task-pv-storage-jenkins"
           persistent_volume_claim {
@@ -57,9 +61,12 @@ resource "kubernetes_deployment" "jenkins-deployment" {
         }
 
         container {
-          image = "sabreensalama/jenkins-ansible:v2"
+          image = "192.168.39.20:32644/vodafone-jenkins-ansible"
+          ## using dockerhub
+          ## image = sabreensalama/jenkins-ansible:latest
           name  = "jenkins-container"
 
+   
           port {
             container_port = 8080
           }
@@ -89,10 +96,13 @@ resource "kubernetes_deployment" "jenkins-deployment" {
 
         }
 
+
         init_container {
           name = "install-kubectl"
-          # image = "allanlei/kubectl"
-          image = "sabreensalama/kubectl:v4"
+          image = "192.168.39.20:32644/kubectl:latest"
+
+          ## from docker hub
+          ## image ="sabreensalama/kubectl:latest"
           volume_mount {
             mount_path = "/data"
             name       = "kubectl"
@@ -103,8 +113,7 @@ resource "kubernetes_deployment" "jenkins-deployment" {
         # docker container
         init_container {
           name = "install-dcocker"
-          # image = "docker:dind"
-          image = "sabreensalama/dockercli:v1"
+          image = "192.168.39.20:32644/vodafone-dockercli"
           volume_mount {
             mount_path = "/data/docker"
             name       = "docker"
