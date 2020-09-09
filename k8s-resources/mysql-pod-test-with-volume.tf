@@ -23,6 +23,13 @@ resource "kubernetes_pod" "mysql-dev-test" {
       name  = "mysql-container"
 
 
+      env {
+        name = "MYSQL_ROOT_PASSWORD"
+        value =  $MYSQL_ROOT_PASSWORD            
+      }
+
+
+
 
       port {
         container_port = 3306

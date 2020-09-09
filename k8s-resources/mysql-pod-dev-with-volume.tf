@@ -23,10 +23,10 @@ resource "kubernetes_pod" "mysql-dev-pod" {
       name  = "mysql-container"
 
 
-          # env {
-          #   name = "MYSQL_ROOT_PASSWORD"
-          #   value =  "root"            
-          # }
+          env {
+            name = "MYSQL_ROOT_PASSWORD"
+            value =  $MYSQL_ROOT_PASSWORD            
+          }
 
 
 
