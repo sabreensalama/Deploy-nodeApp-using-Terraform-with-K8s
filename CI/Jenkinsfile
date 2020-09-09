@@ -43,22 +43,14 @@ pipeline {
             }
         }
 
-          stage('build image for nexus') {
+        stage('push image for nexus') {
 
             steps {
-              sh "docker build -t ${env.nexus-ip}/node-app . "
+              sh "docker tag  $registry ${env.IP}/node-app"
+              sh "docker login -u  ${env.NEXUSER} -p ${env.PASS}  ${env.IP}"
+              sh "docker push ${env.IP}/node-app"
+
             }
         }
-
-        stage('push image to nexus') {
-
-            steps {
-              sh "docker login -u  ${env.NEXUS-USER} -p ${env.NEXUS-PASS}  ${env.NEXUS-IP}"
-            }
-        }
-
-
-
-
     }
 }
