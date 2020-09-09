@@ -2,5 +2,11 @@
   hosts: 127.0.0.1
   connection: local
   tasks:
-  - name:  deploy-app
-    shell: kubectl apply -f . -n {{ env }} --validate=false
+  - name:  create configmap 
+    shell: kubectl apply -f node-app-configmap.yml -n {{ env }} 
+
+  - name: create app deployment
+    shell: kubectl apply -f node-app-pod.yml -n {{ env }} 
+
+  - name: create app service
+    shell: kubectl apply -f node-app-service.yml -n {{ env }} 

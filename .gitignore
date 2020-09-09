@@ -1,5 +1,4 @@
 # Don't track content of these folders
 k8s_resources/.terraform
 k8s_resources/terraform.tfstate.backup
-k8s_resources/terraform.tfstate
-
+s

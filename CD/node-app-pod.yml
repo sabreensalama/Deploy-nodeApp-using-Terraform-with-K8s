@@ -7,7 +7,7 @@ metadata:
 spec:
   containers:
     - name: node-app
-      image: sabreensalama/jenkins-node-app:latest
+      image: 10.108.135.218:5000/node-app
       envFrom:
         - configMapRef:
             name: mysql-configmap
