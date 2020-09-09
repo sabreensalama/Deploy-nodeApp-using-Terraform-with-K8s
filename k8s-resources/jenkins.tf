@@ -61,9 +61,11 @@ resource "kubernetes_deployment" "jenkins-deployment" {
         }
 
         container {
-          image = "192.168.39.20:32644/vodafone-jenkins-ansible"
+          image = "10.108.135.218:5000/vodafone-jenkins-ansible"
+          # image = "192.168.39.20:32644/vodafone-jenkins-ansible"
+
           ## using dockerhub
-          ## image = sabreensalama/jenkins-ansible:latest
+          # image = "sabreensalama/jenkins-ansible:v2"
           name  = "jenkins-container"
 
    
@@ -99,10 +101,10 @@ resource "kubernetes_deployment" "jenkins-deployment" {
 
         init_container {
           name = "install-kubectl"
-          image = "192.168.39.20:32644/kubectl:latest"
+          # image = "192.168.39.20:32644/kubectl:latest"
 
           ## from docker hub
-          ## image ="sabreensalama/kubectl:latest"
+          image ="10.108.135.218:5000/kubectl"
           volume_mount {
             mount_path = "/data"
             name       = "kubectl"
@@ -113,7 +115,8 @@ resource "kubernetes_deployment" "jenkins-deployment" {
         # docker container
         init_container {
           name = "install-dcocker"
-          image = "192.168.39.20:32644/vodafone-dockercli"
+          # image = "192.168.39.20:32644/vodafone-dockercli"
+          image ="10.108.135.218:5000/vodafone-dockercli"
           volume_mount {
             mount_path = "/data/docker"
             name       = "docker"
