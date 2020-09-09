@@ -1,8 +1,10 @@
+
+
 ######### mysql for test env #########3
 resource "kubernetes_pod" "mysql-dev-test" {
   metadata {
     name      = "mysql-pod-test"
-    namespace = "test"
+    namespace = kubernetes_namespace.test.metadata[0].name
     labels = {
       app = "mysql"
     }
@@ -19,14 +21,28 @@ resource "kubernetes_pod" "mysql-dev-test" {
     }
 
     container {
-      image = "sabreensalama/node-app-mysql:v1"
+      image = "mysql:5.7"
       name  = "mysql-container"
 
 
-      env {
-        name = "MYSQL_ROOT_PASSWORD"
-        value =  $MYSQL_ROOT_PASSWORD            
-      }
+         env {
+            name = "MYSQL_ROOT_PASSWORD"
+            value =  "${var.MYSQL_ROOT_PASSWORD}"
+          }
+          env{
+            name= "MYSQL_DATABASE"   
+            value=   "${var.MYSQL_DATABASE}"
+          }
+          env{
+            name=  "MYSQL_USER"
+            value= "${var.MYSQL_USER}"
+
+
+          }
+          env{
+            name= "MYSQL_PASSWORD"
+            value= "${var.MYSQL_PASSWORD}"
+          }
 
 
 
@@ -49,7 +65,7 @@ resource "kubernetes_pod" "mysql-dev-test" {
 resource "kubernetes_persistent_volume_claim" "pvc-mysql-test" {
   metadata {
     name = "pvc-mysql-test"
-    namespace = "test" 
+    namespace = kubernetes_namespace.test.metadata[0].name
   }
   spec {
     access_modes = ["ReadWriteMany"]

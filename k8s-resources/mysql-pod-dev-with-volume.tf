@@ -1,8 +1,14 @@
+variable "MYSQL_ROOT_PASSWORD" {}
+variable "MYSQL_DATABASE" {}
+variable "MYSQL_USER" {}
+variable "MYSQL_PASSWORD" {}
+
+
 ########################## mysql pod ##########################
 resource "kubernetes_pod" "mysql-dev-pod" {
   metadata {
     name      = "mysql-pod-dev"
-    namespace = "dev"
+    namespace = kubernetes_namespace.dev.metadata[0].name
     labels = {
       app = "mysql"
     }
@@ -19,13 +25,27 @@ resource "kubernetes_pod" "mysql-dev-pod" {
     }
 
     container {
-      image = "sabreensalama/node-app-mysql:v1"
+      image = "mysql:5.7"
       name  = "mysql-container"
 
 
           env {
             name = "MYSQL_ROOT_PASSWORD"
-            value =  $MYSQL_ROOT_PASSWORD            
+            value =  "${var.MYSQL_ROOT_PASSWORD}"
+          }
+          env{
+            name= "MYSQL_DATABASE"   
+            value=   "${var.MYSQL_DATABASE}"
+          }
+          env{
+            name=  "MYSQL_USER"
+            value= "${var.MYSQL_USER}"
+
+
+          }
+          env{
+            name= "MYSQL_PASSWORD"
+            value= "${var.MYSQL_PASSWORD}"
           }
 
 
@@ -48,7 +68,7 @@ resource "kubernetes_pod" "mysql-dev-pod" {
 resource "kubernetes_persistent_volume_claim" "pvc-mysql-dev" {
   metadata {
     name = "pvc-mysql-dev"
-    namespace = "dev" 
+    namespace = kubernetes_namespace.dev.metadata[0].name
   }
   spec {
     access_modes = ["ReadWriteMany"]
