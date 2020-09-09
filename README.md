@@ -26,8 +26,8 @@ terraform apply
 3. create a pipline for CD and choose where to deploy the app in dev or test namesapce
 
 # Output
-![CI](https://github.com/sabreensalama/Deploy-nodeApp-using-Terraform-with-K8s/tree/master/output/CI.png)
+![CI](https://github.com/sabreensalama/Deploy-nodeApp-using-Terraform-with-K8s/blob/master/output/CI.png)
 
-![CD](https://github.com/sabreensalama/Deploy-nodeApp-using-Terraform-with-K8s/tree/master/output/CD.png)
+![CD](https://github.com/sabreensalama/Deploy-nodeApp-using-Terraform-with-K8s/blob/master/output/CD.png)
 
-![nodeapp](https://github.com/sabreensalama/Deploy-nodeApp-using-Terraform-with-K8s/tree/master/output/nodeapp.png)
+![nodeapp](https://github.com/sabreensalama/Deploy-nodeApp-using-Terraform-with-K8s/blob/master/output/nodeapp.png)
