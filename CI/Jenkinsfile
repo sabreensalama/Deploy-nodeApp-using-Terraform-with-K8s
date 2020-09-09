@@ -42,5 +42,23 @@ pipeline {
                 }
             }
         }
+
+          stage('build image for nexus') {
+
+            steps {
+              sh "docker build -t ${env.nexus-ip}/node-app . "
+            }
+        }
+
+        stage('push image to nexus') {
+
+            steps {
+              sh "docker login -u  ${env.NEXUS-USER} -p ${env.NEXUS-PASS}  ${env.NEXUS-IP}"
+            }
+        }
+
+
+
+
     }
 }
